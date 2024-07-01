@@ -1,0 +1,12 @@
+/*******/
+.cityAreaSelect-group {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cityAreaSelect-sect {
+  width: 100%;
+  height: 40px;
+  display: block;
+  border: solid 1px #ccc;
+}
