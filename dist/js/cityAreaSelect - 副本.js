@@ -82,7 +82,7 @@
     return ul;
   };
 
-    ProvinceCityAreaSelect.prototype.selectDiv = function(li) {
+  ProvinceCityAreaSelect.prototype.selectDiv = function(li) {
     const parentDiv = li.parentNode.parentNode;
     const selectedDiv = parentDiv.querySelector('.selected');
     if (selectedDiv) {

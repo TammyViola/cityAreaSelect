@@ -12,26 +12,111 @@
 <link href="../dist/css/module.css" rel="stylesheet" type="text/css"/>
 <link href="../dist/css/cityAreaSelect.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
-	
+	.wrapper{
+		min-height: 100vh;
+		padding: 50px 0;
+	}
+	.cityAreaSelect-style{
+		width: 1000px;
+		margin: 0 auto 50px;
+	}
+	.cityAreaSelect-style-title{
+		font-size: 24px;
+		font-weight: bold;
+		color: #333;
+		margin-bottom: 20px;
+	}
+	.cityAreaSelect-wrapper{
+		margin:  0 auto;
+	}
 </style>
 </head>
 
 <body>
 	<div class="wrapper">
-		<div class="row cityAreaSelect-group">
-			<div class="col-md-4 cityAreaSelect-item">
-				<select class="cityAreaSelect-sect" id="provinceSelect1"></select>
+		<section class="cityAreaSelect-style">
+			<div class="cityAreaSelect-style-title">省市区-select控件</div>
+
+			<div class="cityAreaSelect-wrapper">
+				<div class="row cityAreaSelect-group">
+					<div class="col-md-4 cityAreaSelect-item">
+						<select class="cityAreaSelect-select" id="provinceSelect1">
+							<option value="">请选择省/直辖市</option>
+						</select>
+					</div>
+					<div class="col-md-4 cityAreaSelect-item">
+						<select class="cityAreaSelect-select" id="citySelect1">
+							<option value="">请选择城市/区</option>
+						</select>
+					</div>
+					<div class="col-md-4 cityAreaSelect-item">
+						<select class="cityAreaSelect-select" id="areaSelect1">
+							<option value="">请选择区/县</option>
+						</select>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-4 cityAreaSelect-item">
-				<select class="cityAreaSelect-sect" id="citySelect1"></select>
+		</section>
+
+		<section class="cityAreaSelect-style">
+			<div class="cityAreaSelect-style-title">省市-select控件</div>
+
+			<div class="cityAreaSelect-wrapper">
+				<div class="row cityAreaSelect-group">
+					<div class="col-md-4 cityAreaSelect-item">
+						<select class="cityAreaSelect-select" id="provinceSelect2">
+							<option value="">请选择省/直辖市</option>
+						</select>
+					</div>
+					<div class="col-md-4 cityAreaSelect-item">
+						<select class="cityAreaSelect-select" id="citySelect2">
+							<option value="">请选择城市/区</option>
+						</select>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-4 cityAreaSelect-item">
-				<select class="cityAreaSelect-sect" id="areaSelect1"></select>
+		</section>
+
+		<section class="cityAreaSelect-style">
+			<div class="cityAreaSelect-style-title">省市区-自定义控件</div>
+
+			<div class="cityAreaSelect-wrapper">
+				<div class="row cityAreaSelect-group">
+					<div class="col-md-4 cityAreaSelect-item">
+						<div class="cityAreaSelect-custom-wrapper">
+							<input type="text" disabled class="cityAreaSelect-select" id="provinceSelect3" placeholder="请选择省/直辖市">
+						</div>
+					</div>
+					<div class="col-md-4 cityAreaSelect-item">
+						<div class="cityAreaSelect-custom-wrapper">
+							<input type="text" disabled class="cityAreaSelect-select" id="citySelect3" placeholder="请选择省/直辖市">
+						</div>
+					</div>
+					<div class="col-md-4 cityAreaSelect-item">
+						<div class="cityAreaSelect-custom-wrapper">
+							<input type="text" disabled class="cityAreaSelect-select" id="areaSelect3" placeholder="请选择区/县">
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
+		</section>
 	</div>
 </body>
 
 </html>
 <script type="text/javascript" src="../dist/js/jquery.min.js"></script>
 <script type="text/javascript" src="../dist/js/cityAreaSelect.js"></script>
+<script type="text/javascript">
+	// 使用示例
+	const pcaSelect1 = new ProvinceCityAreaSelect({
+	  addrValElem: ['provinceSelect1', 'citySelect1', 'areaSelect1']
+	});
+
+	const pcaSelect2 = new ProvinceCityAreaSelect({
+	  addrValElem: ['provinceSelect2', 'citySelect2']
+	});
+
+	const pcaSelect3 = new ProvinceCityAreaSelect({
+	  addrValElem: ['provinceSelect3', 'citySelect3', 'areaSelect3']
+	});
+</script>
