@@ -79,7 +79,7 @@
 			</div>
 		</body>
 
-		<script type="text/javascript" src="./dist/js/cityAreaSelect.js"></script>
+		<script type="text/javascript" src="./dist/js/cityAreaSelect.min.js"></script>
 	</html>
 
 ## JS调用方法
