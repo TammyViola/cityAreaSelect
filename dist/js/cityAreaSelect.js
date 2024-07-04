@@ -10,7 +10,8 @@
 * provinceWord: 可设置，省/市占位提示语，String
 * cityWord: 可设置，市/区占位提示语，String
 * areaWord: 可设置，区/县占位提示语，String
-* onSelected: 可设置，选择后回调事件，Function
+* onInit: 可设置，初始加载后回调事件，Function, 可返回省/市/区控件id
+* onSelected: 可设置，选择后回调事件，Function, 可返回省/市/区参数值
 * mergeDiv: 省市区地址是否是合并显示的, Boolean
 * isSelect: 省市区地址显示控件是否是select, Boolean
 * provinceSelect: 省/市级地址控件
@@ -48,6 +49,9 @@
 
     // 区/县占位提示语
     this.areaWord = options.provinceWord || '请选择区/县';
+
+    // 初始加载后回调事件
+    this.onInit = options.onInit || null;
 
     // 选择后回调事件
     this.onSelected = options.onSelected || null;
@@ -91,7 +95,9 @@
     }
     console.log(areaData)
     
-    
+    if(this.onInit){
+      this.onInit(this.provinceSelect.id, this.citySelect.id, this.areaSelect.id);
+    }
   };
 
   // 省市区联动选择插件-构造省级结构
