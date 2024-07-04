@@ -1,6 +1,7 @@
 # citySelectJs
 
-##参数说明
+参数说明
+---------------
 * addrValElem: 省市区控件参数Id, String(省市区控件合并显示时) / Array(省市区控件多级且独立分开时)
 * separator: 合并地址分隔符, String
 * provinceWord: 省/市占位提示语，String
