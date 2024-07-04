@@ -1,83 +1,86 @@
-# citySelectJs
+# cityAreaSelect.js
 
-## HTML结构
-1. 省市区-select控件-3级联动
-		<div class="cityAreaSelect-group row">
-			  <div class="cityAreaSelect-item col-md-4">
-				    <select class="cityAreaSelect-select" id="provinceSelect">
-				      	<option value="">请选择省/直辖市</option>
-				    </select>
-			  </div>
-			  <div class="cityAreaSelect-item col-md-4">
-				    <select class="cityAreaSelect-select" id="citySelect">
-				      	<option value="">请选择城市/区</option>
-				    </select>
-			  </div>
-			  <div class="cityAreaSelect-item col-md-4">
-				    <select class="cityAreaSelect-select" id="areaSelect">
-				      	<option value="">请选择区/县</option>
-				    </select>
-			  </div>
-		</div>
-
-2. 省市-select控件-2级联动
-		<div class="cityAreaSelect-group row">
-			  <div class="cityAreaSelect-item col-md-6">
-				    <select class="cityAreaSelect-select" id="provinceSelect">
-				      	<option value="">请选择省/直辖市</option>
-				    </select>
-			  </div>
-			  <div class="cityAreaSelect-item col-md-6">
-				    <select class="cityAreaSelect-select" id="citySelect">
-				      	<option value="">请选择城市/区</option>
-				    </select>
-			  </div>
-		</div>
-
-3. 省市区-自定义div控件-3级联动
-		<div class="cityAreaSelect-group row">
-			  <div class="cityAreaSelect-item col-md-4">
-				    <div class="cityAreaSelect-custom-box">
-								<input type="text" hidden id="provinceSelect">
-								<div class="cityAreaSelect-text">请选择省/直辖市</div>
-						</div>
-			  </div>
-			  <div class="cityAreaSelect-item col-md-4">
-				    <div class="cityAreaSelect-custom-box">
-								<input type="text" hidden id="citySelect">
-								<div class="cityAreaSelect-text">请选择城市/区</div>
-						</div>
-			  </div>
-			  <div class="cityAreaSelect-item col-md-4">
-				    <div class="cityAreaSelect-custom-box">
-								<input type="text" hidden id="areaSelect">
-								<div class="cityAreaSelect-text">请选择区/县</div>
-						</div>
-			  </div>
-		</div>
-
-4. 省市-自定义div控件-2级联动
-		<div class="cityAreaSelect-group row">
-			  <div class="cityAreaSelect-item col-md-6">
-				    <div class="cityAreaSelect-custom-box">
-								<input type="text" hidden id="provinceSelect">
-								<div class="cityAreaSelect-text">请选择省/直辖市</div>
-						</div>
-			  </div>
-			  <div class="cityAreaSelect-item col-md-6">
-				    <div class="cityAreaSelect-custom-box">
-								<input type="text" hidden id="citySelect">
-								<div class="cityAreaSelect-text">请选择城市/区</div>
-						</div>
-			  </div>
-		</div>
-
-## CSS 和 JS 调用
-		<link href="./dist/css/cityAreaSelect.css" rel="stylesheet" type="text/css"/>
+## HTML 调用
+	<html>
+		<head>
+			<link href="./dist/css/cityAreaSelect.css" rel="stylesheet" type="text/css"/>
+		</head>
 		
-		...
+		<body>
+			<!-- 1. 省市区-select控件-3级联动 -->
+			<div class="cityAreaSelect-group row">
+			  <div class="cityAreaSelect-item col-md-4">
+			    <select class="cityAreaSelect-select" id="provinceSelect">
+			      <option value="">请选择省/直辖市</option>
+			    </select>
+			  </div>
+			  <div class="cityAreaSelect-item col-md-4">
+			    <select class="cityAreaSelect-select" id="citySelect">
+			      <option value="">请选择城市/区</option>
+			    </select>
+			  </div>
+			  <div class="cityAreaSelect-item col-md-4">
+			    <select class="cityAreaSelect-select" id="areaSelect">
+			      <option value="">请选择区/县</option>
+			    </select>
+			  </div>
+			</div>
+
+			<!-- 2. 省市-select控件-2级联动 -->
+			<div class="cityAreaSelect-group row">
+			  <div class="cityAreaSelect-item col-md-6">
+			    <select class="cityAreaSelect-select" id="provinceSelect">
+			      <option value="">请选择省/直辖市</option>
+			    </select>
+			  </div>
+			  <div class="cityAreaSelect-item col-md-6">
+			    <select class="cityAreaSelect-select" id="citySelect">
+			      <option value="">请选择城市/区</option>
+			    </select>
+			  </div>
+			</div>
+
+			<!-- 3. 省市区-自定义div控件-3级联动 -->
+			<div class="cityAreaSelect-group row">
+			  <div class="cityAreaSelect-item col-md-4">
+			    <div class="cityAreaSelect-custom-box">
+			      <input type="text" hidden id="provinceSelect">
+			      <div class="cityAreaSelect-text">请选择省/直辖市</div>
+			    </div>
+			  </div>
+			  <div class="cityAreaSelect-item col-md-4">
+			    <div class="cityAreaSelect-custom-box">
+			      <input type="text" hidden id="citySelect">
+			      <div class="cityAreaSelect-text">请选择城市/区</div>
+			    </div>
+			  </div>
+			  <div class="cityAreaSelect-item col-md-4">
+			    <div class="cityAreaSelect-custom-box">
+			      <input type="text" hidden id="areaSelect">
+			      <div class="cityAreaSelect-text">请选择区/县</div>
+			    </div>
+			  </div>
+			</div>
+
+			<!-- 4. 省市-自定义div控件-2级联动 -->
+			<div class="cityAreaSelect-group row">
+			  <div class="cityAreaSelect-item col-md-6">
+			    <div class="cityAreaSelect-custom-box">
+			      <input type="text" hidden id="provinceSelect">
+			      <div class="cityAreaSelect-text">请选择省/直辖市</div>
+			    </div>
+			  </div>
+			  <div class="cityAreaSelect-item col-md-6">
+			    <div class="cityAreaSelect-custom-box">
+			      <input type="text" hidden id="citySelect">
+			      <div class="cityAreaSelect-text">请选择城市/区</div>
+			    </div>
+			  </div>
+			</div>
+		</body>
 
 		<script type="text/javascript" src="./dist/js/cityAreaSelect.js"></script>
+	</html>
 
 ## JS参数说明
 
