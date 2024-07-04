@@ -35,7 +35,7 @@
 <body>
 	<div class="wrapper">
 		<section class="cityAreaSelect-style">
-			<div class="cityAreaSelect-style-title">省市区-select控件</div>
+			<div class="cityAreaSelect-style-title">省市区-select控件-3级联动</div>
 
 			<div class="cityAreaSelect-wrapper">
 				<div class="row cityAreaSelect-group">
@@ -59,7 +59,7 @@
 		</section>
 
 		<section class="cityAreaSelect-style">
-			<div class="cityAreaSelect-style-title">省市-select控件</div>
+			<div class="cityAreaSelect-style-title">省市-select控件-2级联动</div>
 
 			<div class="cityAreaSelect-wrapper">
 				<div class="row cityAreaSelect-group">
@@ -78,23 +78,62 @@
 		</section>
 
 		<section class="cityAreaSelect-style">
-			<div class="cityAreaSelect-style-title">省市区-自定义控件</div>
+			<div class="cityAreaSelect-style-title">省市区-自定义div控件-3级联动</div>
 
 			<div class="cityAreaSelect-wrapper">
 				<div class="row cityAreaSelect-group">
 					<div class="col-md-4 cityAreaSelect-item">
-						<div class="cityAreaSelect-custom-wrapper">
-							<input type="text" disabled class="cityAreaSelect-select" id="provinceSelect3" placeholder="请选择省/直辖市">
+						<div class="cityAreaSelect-custom-box">
+							<input type="text" hidden id="provinceSelect3">
+							<div class="cityAreaSelect-text">请选择省/直辖市</div>
 						</div>
 					</div>
 					<div class="col-md-4 cityAreaSelect-item">
-						<div class="cityAreaSelect-custom-wrapper">
-							<input type="text" disabled class="cityAreaSelect-select" id="citySelect3" placeholder="请选择省/直辖市">
+						<div class="cityAreaSelect-custom-box">
+							<input type="text" hidden id="citySelect3">
+							<div class="cityAreaSelect-text">请选择城市/区</div>
 						</div>
 					</div>
 					<div class="col-md-4 cityAreaSelect-item">
-						<div class="cityAreaSelect-custom-wrapper">
-							<input type="text" disabled class="cityAreaSelect-select" id="areaSelect3" placeholder="请选择区/县">
+						<div class="cityAreaSelect-custom-box">
+							<input type="text" hidden id="areaSelect3">
+							<div class="cityAreaSelect-text">请选择区/县</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="cityAreaSelect-style">
+			<div class="cityAreaSelect-style-title">省市-自定义div控件-2级联动</div>
+
+			<div class="cityAreaSelect-wrapper">
+				<div class="row cityAreaSelect-group">
+					<div class="col-md-4 cityAreaSelect-item">
+						<div class="cityAreaSelect-custom-box">
+							<input type="text" hidden id="provinceSelect4">
+							<div class="cityAreaSelect-text">请选择省/直辖市</div>
+						</div>
+					</div>
+					<div class="col-md-4 cityAreaSelect-item">
+						<div class="cityAreaSelect-custom-box">
+							<input type="text" hidden id="citySelect4">
+							<div class="cityAreaSelect-text">请选择城市/区</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="cityAreaSelect-style">
+			<div class="cityAreaSelect-style-title">省市区-自定义div控件-多级合并</div>
+
+			<div class="cityAreaSelect-wrapper">
+				<div class="row cityAreaSelect-group">
+					<div class="col-md-8 cityAreaSelect-item">
+						<div class="cityAreaSelect-custom-box">
+							<input type="text" hidden id="provinceSelect5">
+							<div class="cityAreaSelect-text"></div>
 						</div>
 					</div>
 				</div>
@@ -108,8 +147,12 @@
 <script type="text/javascript" src="../dist/js/cityAreaSelect.js"></script>
 <script type="text/javascript">
 	// 使用示例
+	// 省市区控件多级且独立分开时，addrValElem必须是数组；合并显示时，为字符串
 	const pcaSelect1 = new ProvinceCityAreaSelect({
-	  addrValElem: ['provinceSelect1', 'citySelect1', 'areaSelect1']
+	  addrValElem: ['provinceSelect1', 'citySelect1', 'areaSelect1'],
+	  onSelected: function(provinceVal, cityVal, areaVal){
+	  	console.log(provinceVal+', '+cityVal+', '+areaVal)
+	  }
 	});
 
 	const pcaSelect2 = new ProvinceCityAreaSelect({
@@ -117,6 +160,17 @@
 	});
 
 	const pcaSelect3 = new ProvinceCityAreaSelect({
-	  addrValElem: ['provinceSelect3', 'citySelect3', 'areaSelect3']
+	  addrValElem: ['provinceSelect3', 'citySelect3', 'areaSelect3'],
+	  onSelected: function(provinceVal, cityVal, areaVal){
+	  	console.log(provinceVal+', '+cityVal+', '+areaVal)
+	  }
+	});
+
+	const pcaSelect4 = new ProvinceCityAreaSelect({
+	  addrValElem: ['provinceSelect4', 'citySelect4']
+	});
+
+	const pcaSelect5 = new ProvinceCityAreaSelect({
+	  addrValElem: 'provinceSelect5'
 	});
 </script>

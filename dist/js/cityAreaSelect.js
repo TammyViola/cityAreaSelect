@@ -5,8 +5,12 @@
 * by Tammy @2024
 * 
 * 插件所涉及参数
-* addrValElem: 可设置，省市区控件参数Id, String / Array
+* addrValElem: 可设置，省市区控件参数Id, String(省市区控件合并显示时) / Array(省市区控件多级且独立分开时)
 * separator: 可设置，合并地址分隔符, String
+* provinceWord: 可设置，省/市占位提示语，String
+* cityWord: 可设置，市/区占位提示语，String
+* areaWord: 可设置，区/县占位提示语，String
+* onSelected: 可设置，选择后回调事件，Function
 * mergeDiv: 省市区地址是否是合并显示的, Boolean
 * isSelect: 省市区地址显示控件是否是select, Boolean
 * provinceSelect: 省/市级地址控件
@@ -36,6 +40,18 @@
     // 地址分隔符
     this.separator = options.separator || ' ';  
 
+    // 省/市占位提示语
+    this.provinceWord = options.provinceWord || '请选择省/直辖市';
+
+    // 市/区占位提示语
+    this.cityWord = options.provinceWord || '请选择城市/区';
+
+    // 区/县占位提示语
+    this.areaWord = options.provinceWord || '请选择区/县';
+
+    // 选择后回调事件
+    this.onSelected = options.onSelected || null;
+
     // 点击事件
     this.tapEvent = "ontouchstart" in document ? "touchend" : "click";
 
@@ -59,33 +75,38 @@
       this.isSelect = this.provinceSelect.tagName === 'SELECT';
       this.mergeDiv = false;
       this.populateProvinces();
+
+      if(this.isSelect){
+        this.selectBindEvents();
+      }
+      else{
+        this.divBindEvents();
+      }
     }
     else{
       this.addrAllSelect = document.getElementById(addrValElem);
-      this.provinceSelect = document.getElementById(addrValElem + '_province');
-      this.citySelect = document.getElementById(addrValElem + '_city');
-      this.areaSelect = document.getElementById(addrValElem + '_area');
       this.isSelect = false;
       this.mergeDiv = true;
       this.populateMergeDiv(this.addrAllSelect, areaData);
     }
     console.log(areaData)
-    this.bindEvents();
+    
+    
   };
 
   // 省市区联动选择插件-构造省级结构
   ProvinceCityAreaSelect.prototype.populateProvinces = function() {
-    const firstVal = "请选择省/直辖市";
+    const placeholder = this.provinceWord;
     if (this.isSelect) {
-      this.populateSelect(this.provinceSelect, areaData, firstVal);
+      this.populateSelect(this.provinceSelect, areaData, placeholder);
     } else {
-      this.populateDiv(this.provinceSelect.parentNode, areaData, firstVal);
+      this.populateDiv(this.provinceSelect, areaData, placeholder);
     }
   };
 
   // 省市区联动选择插件-构造市/区级结构
   ProvinceCityAreaSelect.prototype.populateCities = function(provinceCode) {
-    const firstVal = "请选择城市/区";
+    const placeholder = this.cityWord;
     const cityData = provinceCode ? areaData[provinceCode].children : null;
     let cities = cityData ? cityData : null;
 
@@ -106,9 +127,9 @@
     }
     
     if (this.isSelect) {
-      this.populateSelect(this.citySelect, cities, firstVal);
+      this.populateSelect(this.citySelect, cities, placeholder);
     } else {
-      this.populateDiv(this.citySelect, cities, firstVal);
+      this.populateDiv(this.citySelect, cities, placeholder);
     }
 
     // 如果有区/县选择控件，构造下拉选项
@@ -129,28 +150,31 @@
 
   // 省市区联动选择插件-构造区/县级结构
   ProvinceCityAreaSelect.prototype.populateAreas = function(cityCode) {
-    const firstVal = "请选择区/县";
+    const placeholder = this.areaWord;
     if (this.isSelect) {
       const provinceIndex = this.provinceSelect.selectedIndex;
-      const provinceCode = this.provinceSelect.options[provinceIndex].getAttribute("data-num");
+      const provinceCode = this.provinceSelect.options[provinceIndex].getAttribute("data-code");
       const areas = cityCode ? areaData[provinceCode].children[cityCode].children : null;
-      this.populateSelect(this.areaSelect, areas, firstVal);
+      this.populateSelect(this.areaSelect, areas, placeholder);
     }
     else{
-      const provinceCode = this.provinceSelect.getAttribute("data-num");
+      const provinceCode = this.provinceSelect.getAttribute("data-code");
       const areas = cityCode ? areaData[provinceCode].children[cityCode].children : null;
-      this.populateDiv(this.areaSelect, areas, firstVal);
+      this.populateDiv(this.areaSelect, areas, placeholder);
     }
   };
 
-
-  // select控件option赋值
-  ProvinceCityAreaSelect.prototype.populateSelect = function(sel, data, firstVal) {
+  /* select控件option赋值
+  ** sel: 当前地区控件id
+  ** data: 地址数据
+  ** placeholder: 空值占位语 
+  */ 
+  ProvinceCityAreaSelect.prototype.populateSelect = function(sel, data, placeholder) {
     sel.innerHTML = '';
-    if(firstVal){
+    if(placeholder){
       const option = document.createElement('option');
       option.value = '';
-      option.textContent = firstVal;
+      option.textContent = placeholder;
       sel.appendChild(option);
     }
     if(data){
@@ -167,10 +191,26 @@
     }
   };
 
-  // 省市区div控件构造
-  ProvinceCityAreaSelect.prototype.populateDiv = function(div, data) {
-    const dropdiv = document.createElement('div');
+  /* 省市区div控件构造
+  ** sel: 当前地区控件id
+  ** data: 地址数据
+  ** placeholder: 空值占位语 
+  */ 
+  ProvinceCityAreaSelect.prototype.populateDiv = function(sel, data, placeholder) {
+    const div = sel.parentNode;
+    const creatDiv = document.createElement('div');
     const ul = document.createElement('ul');
+    const hadselValue = sel.value ? true : false;
+
+    ul.classList.add("cityAreaSelect-list");
+
+    if(placeholder){
+      const li = document.createElement('li');
+      li.textContent = placeholder;
+      li.setAttribute("data-value", '');
+      li.onclick = this.selectDiv.bind(this, sel, li, placeholder);
+      ul.appendChild(li);
+    }
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const code = Object.keys(data[key])[0];
@@ -178,37 +218,166 @@
         li.textContent = data[key][code];
         li.setAttribute("data-code", key);
         li.setAttribute("data-value", data[key][code]);
-        li.onclick = this.selectDiv.bind(this, li);
+        li.onclick = this.selectDiv.bind(this, sel, li);
         ul.appendChild(li);
+
+        if(hadselValue && sel.value === data[key][code]){
+          li.classList.add('selected');
+        }
       }
     }
-    dropdiv.appendChild(ul);
-    dropdiv.classList.add('cityAreaSelect-custom-dropdown');
-    div.appendChild(dropdiv);    
+
+    // 判断当前控件是否已存在下拉框结构
+    if(div.querySelector('.cityAreaSelect-dropdown')){
+      const dropDiv = div.querySelector('.cityAreaSelect-dropdown');
+      dropDiv.innerHTML = '';
+      dropDiv.appendChild(ul);
+    }
+    else{
+      creatDiv.appendChild(ul);
+      creatDiv.classList.add('cityAreaSelect-dropdown');
+      div.appendChild(creatDiv);    
+    }
+    
+    // 如果当前是省级地址控件
+    if(sel.id === this.provinceSelect.id){
+      this.populateCities(null);
+    }
+    else if (sel.id === this.citySelect.id) {
+      if(this.areaSelect){
+        this.populateAreas(null);
+      }
+    }
   };
 
-  // 省市区div控件-li点击事件
-  ProvinceCityAreaSelect.prototype.selectDiv = function(li) {
-    const parentDiv = li.parentNode.parentNode;
+  /* 省市区div控件-li点击事件
+  ** sel: 当前地区控件id
+  ** li: 当前点击的li
+  ** placeholder: 空值占位语 
+  */ 
+  ProvinceCityAreaSelect.prototype.selectDiv = function(sel, li, placeholder) {
+    const self = this;
+    const parentDiv = li.parentNode.parentNode.parentNode;
     const selectedDiv = parentDiv.querySelector('.selected');
+
+    self.stopBubble(event);
+    
     if (selectedDiv) {
       selectedDiv.classList.remove('selected');
     }
     li.classList.add('selected');
-    this.updateSelectedDiv(li.textContent);
+    this.updateSelectedDiv(sel, li, placeholder);
 
-    if (parentDiv.id === this.provinceSel.id) {
-      this.populateCities(li.value);
-    } else if (parentDiv.id === this.citySel.id) {
-      this.populateAreas(li.value);
+    if(sel.value){
+      sel.setAttribute('data-selValid', 'true');
+      sel.setAttribute('data-code', li.getAttribute('data-code'));
+    }
+    else{
+      sel.setAttribute('data-selValid', 'false');
+      sel.setAttribute('data-code', '');
+    }
+    
+    if (sel.id === this.provinceSelect.id) { // 如果当前是省级控件
+      this.citySelect.value = '';
+      this.citySelect.parentNode.querySelector('.cityAreaSelect-text').innerHTML = this.cityWord;
+      if(sel.value){
+        self.populateCities(li.getAttribute('data-code'));
+      }
+      else{
+        self.populateCities(null);
+      }
+    } 
+    else if (sel.id === this.citySelect.id) {  // 如果当前是市级控件
+      if(this.areaSelect){
+        this.areaSelect.value = '';
+        this.areaSelect.parentNode.querySelector('.cityAreaSelect-text').innerHTML = this.areaWord;
+
+        if(sel.value){
+          self.populateAreas(li.getAttribute('data-code'));
+        }
+        else{
+          self.populateAreas(null);
+        }
+      }
+    }
+
+    if(this.onSelected){
+      this.onSelected(self.provinceSelect.value, self.citySelect.value, self.areaSelect.value);
     }
   };
 
-  // select控件事件监听
-  ProvinceCityAreaSelect.prototype.bindEvents = function() {
+  /* 省市区div控件-显示框文本更新
+  ** sel: 当前地区控件id
+  ** li: 当前点击的li
+  ** placeholder: 空值占位语 
+  */ 
+  ProvinceCityAreaSelect.prototype.updateSelectedDiv = function(sel, li, placeholder) {
+    const text = li.getAttribute("data-value");
+    const placeword = placeholder ? placeholder : '';
+    const parentDiv = sel.parentNode,
+          textElem = parentDiv.querySelector(".cityAreaSelect-text"),
+          dropDiv = li.parentNode.parentNode;
+    if (this.mergeDiv) {
+      
+    }
+    else{
+      sel.value = text;
+      textElem.textContent = text ? text : placeword;
+    }
+    dropDiv.style.display = 'none';
+    parentDiv.classList.remove('is-open');
+  };
+
+  /* 省市区div控件构造-合并显示
+  ** sel: 当前地区控件id
+  ** data: 地址数据
+  ** placeholder: 空值占位语 
+  */ 
+  ProvinceCityAreaSelect.prototype.populateMergeDiv = function(allSelect, data){
     const self = this;
+    this.creatInputStructure();
+  }
+
+  // 合并div控件-创建省市区独立input
+  ProvinceCityAreaSelect.prototype.creatInputStructure = function(){
+    const allSelect = document.getElementById(this.addrValElem);
+    const provinceInput = document.createElement('input'),
+          cityInput = document.createElement('input'),
+          areaInput = document.createElement('input');
+
+    provinceInput.id = this.addrValElem + '_province';
+    cityInput.id = this.addrValElem + '_city';
+    areaInput.id = this.addrValElem + '_area';
+
+    provinceInput.hidden = true;
+    cityInput.hidden = true;
+    areaInput.hidden = true;
+
+    provinceInput.type = 'text';
+    cityInput.type = 'text';
+    areaInput.type = 'text';
+    
+    allSelect.parentNode.insertBefore(provinceInput, allSelect.nextSibling);
+    allSelect.parentNode.insertBefore(cityInput, allSelect.nextSibling);
+    allSelect.parentNode.insertBefore(areaInput, allSelect.nextSibling);
+
+    this.provinceSelect = document.getElementById(this.addrValElem + '_province');
+    this.citySelect = document.getElementById(this.addrValElem + '_city');
+    this.areaSelect = document.getElementById(this.addrValElem + '_area');
+  }
+
+  // 合并div控件 - 创建下拉框
+  ProvinceCityAreaSelect.prototype.createDivStructure = function(){
+    
+  }
+
+  // select控件事件监听
+  ProvinceCityAreaSelect.prototype.selectBindEvents = function() {
+    const self = this;
+
+    // 省级控件文本更新时事件
     this.provinceSelect.addEventListener('change', function() {
-      const code = self.isSelect ? this.options[this.selectedIndex].getAttribute("data-code") : this.getAttribute("data-code");
+      const code = this.options[this.selectedIndex].getAttribute("data-code");
       if(this.value){
         this.setAttribute("data-selValid", "true");
         self.populateCities(code);
@@ -217,22 +386,110 @@
         this.setAttribute("data-selValid", "false");
         self.populateCities(null);
       }
+
+      if(self.onSelected){
+        self.onSelected(self.provinceSelect.value, self.citySelect.value, self.areaSelect.value);
+      }
     });
 
-    this.citySelect.addEventListener('change', function() {
-      const code = self.isSelect ? this.options[this.selectedIndex].getAttribute("data-code") : this.getAttribute("data-code");
-      if(this.value){
-        this.setAttribute("data-selValid", "true");
-      }
-      else{
-        this.setAttribute("data-selValid", "false");
-      }
+    // 市/区级控件文本更新时事件
+    if(this.citySelect){
+      this.citySelect.addEventListener('change', function() {
+        const code = this.options[this.selectedIndex].getAttribute("data-code");
+        if(this.value){
+          this.setAttribute("data-selValid", "true");
+        }
+        else{
+          this.setAttribute("data-selValid", "false");
+        }
 
-      if(this.areaSelect){
-        self.populateAreas(code);
-      }
-    });
+        if(self.areaSelect){
+          self.populateAreas(code);
+        }
+
+        if(self.onSelected){
+          self.onSelected(self.provinceSelect.value, self.citySelect.value, self.areaSelect.value);
+        }
+      });
+    }
+
+    // 区/县级控件文本更新时事件
+    if(this.areaSelect){
+      this.areaSelect.addEventListener('change', function() {
+        if(self.onSelected){
+          self.onSelected(self.provinceSelect.value, self.citySelect.value, self.areaSelect.value);
+        }
+      });
+    }
   };
+
+  // div自定义控件事件监听
+  ProvinceCityAreaSelect.prototype.divBindEvents = function(){
+    const self = this;
+    const tapEvent = this.tapEvent;
+    let parentDiv = this.provinceSelect.parentNode;
+
+    // 查找最外层父级
+    while (parentDiv && !parentDiv.classList.contains('cityAreaSelect-group')) {
+      parentDiv = parentDiv.parentNode;
+    }
+
+    const allSelectedTextElem = document.querySelectorAll('.cityAreaSelect-text');
+    const selectedDiv = parentDiv.querySelectorAll('.cityAreaSelect-text');
+
+    selectedDiv.forEach( function(element) {
+      element.addEventListener(tapEvent, function(event){
+        const thisTextDiv = this;
+        const parentDiv = this.parentNode;
+        const dropDiv = parentDiv.querySelector('.cityAreaSelect-dropdown');
+
+        self.stopBubble(event);
+
+        // 移除所有其他div.cityAreaSelect-text的class='is-open'
+        allSelectedTextElem.forEach(function(otherElement) {
+          if (otherElement !== this) {
+            const otherParent = otherElement.parentNode,
+                  otherDropDiv = otherParent.querySelector('.cityAreaSelect-dropdown');
+            otherParent.classList.remove('is-open');
+            if(otherDropDiv) otherDropDiv.style.display = 'none';
+          }
+        }, this);
+
+        if(dropDiv){
+          if(dropDiv.style.display === 'none' || !dropDiv.style.display){
+            dropDiv.style.display = 'block';
+            parentDiv.classList.add("is-open");
+          }
+          else{
+            dropDiv.style.display = 'none';
+            parentDiv.classList.remove("is-open");
+          }
+        }
+      });
+    });
+
+    document.addEventListener(tapEvent, function(event) {
+      const activeSelect = document.querySelectorAll('.cityAreaSelect-custom-box.is-open');
+      activeSelect.forEach(function(textElement) {
+        textElement.classList.remove('is-open');
+        if(textElement.querySelector('.cityAreaSelect-dropdown')){
+          textElement.querySelector('.cityAreaSelect-dropdown').style.display = 'none';
+        }
+      });
+    });
+  }
+
+  // 阻止冒泡
+  ProvinceCityAreaSelect.prototype.stopBubble = function(e){
+    // 如果传入了事件对象，那么就是非ie浏览器  
+    if (e && e.stopPropagation) {
+      //因此它支持W3C的stopPropagation()方法  
+      e.stopPropagation();
+    } else {
+      //否则我们使用ie的方法来取消事件冒泡  
+      window.event.cancelBubble = true;
+    }
+  }
 
 
   // 暴露插件给全局

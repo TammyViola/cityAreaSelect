@@ -40,6 +40,7 @@ $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 160
     color: #666666;
   }
 }
+
 @media (min-width: 992px) {
   .cityAreaSelect-select{
     -webkit-appearance: none;
@@ -48,10 +49,35 @@ $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 160
 }
 
 /* 自定义省市区 */
-.cityAreaSelect-custom-wrapper{
-  position: relative;
+.cityAreaSelect-text{
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  border: solid 1px #cdcccc;
+  font-size: 16px;
+  line-height: 1em;
+  padding: 0 1.25em;
+  color: #333;
+  background: url("../../img/static/chevron-down-gray.svg") no-repeat right 1.25em center transparent;
+  background-size: 1em auto;
+  cursor: pointer;
+  border-radius: 4px;
+
+  &.isnull{
+    color: #666666;
+  }
 }
-.cityAreaSelect-custom-dropdown{
+.cityAreaSelect-custom-box{
+  position: relative;
+
+  &.is-open{
+    .cityAreaSelect-text{
+      background-image: url("../../img/static/chevron-up-gray.svg");
+    }
+  }
+}
+.cityAreaSelect-dropdown{
   min-width: 100%;
   overflow: hidden;
   border-radius: 4px;
@@ -66,6 +92,7 @@ $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 160
   line-height: 3.125em;
   color: #666;
   padding: 10px 8px 10px 0;
+  display: none;
 
   ul{
     width: 100%;
@@ -98,7 +125,7 @@ $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 160
   }
 }
 @media (min-width: 992px) {
-  .cityAreaSelect-custom-dropdown{
+  .cityAreaSelect-dropdown{
     li:hover{
       background-color: #f8f8f8;
       color: #e1251b;
@@ -106,3 +133,5 @@ $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 160
     }
   }
 }
+
+/* 自定义省市区-合并显示 */
