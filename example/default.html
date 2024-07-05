@@ -13,7 +13,7 @@
 <link href="../dist/css/cityAreaSelect.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
 	.wrapper{
-		min-height: 100vh;
+		min-height: 150vh;
 		padding: 50px 0;
 	}
 	.cityAreaSelect-style{
@@ -131,9 +131,9 @@
 			<div class="cityAreaSelect-wrapper">
 				<div class="cityAreaSelect-group row">
 					<div class="cityAreaSelect-item col-md-8">
-						<div class="cityAreaSelect-custom-box">
+						<div class="cityAreaSelect-merge-box">
 							<input type="text" hidden id="provinceSelect5">
-							<div class="cityAreaSelect-text"></div>
+							<div class="cityAreaSelect-text">请选择省市区</div>
 						</div>
 					</div>
 				</div>
@@ -143,17 +143,17 @@
 </body>
 
 </html>
-<script type="text/javascript" src="../dist/js/cityAreaSelect.js"></script>
+<script type="text/javascript" src="../dist/js/cityAreaSelect.min.js"></script>
 <script type="text/javascript">
 	// 使用示例
 	// 省市区控件多级且独立分开时，addrValElem必须是数组；合并显示时，为字符串
 	const pcaSelect1 = new ProvinceCityAreaSelect({
 	  addrValElem: ['provinceSelect1', 'citySelect1', 'areaSelect1'],
 	  onInit: function(provinceSelect, citySelect, areaSelect){
-	  	console.log(provinceSelect+', '+citySelect+', '+areaSelect)
+	  	//console.log(provinceSelect+', '+citySelect+', '+areaSelect)
 	  },
 	  onSelected: function(provinceVal, cityVal, areaVal){
-	  	console.log(provinceVal+', '+cityVal+', '+areaVal)
+	  	//console.log(provinceVal+', '+cityVal+', '+areaVal)
 	  }
 	});
 
@@ -164,7 +164,7 @@
 	const pcaSelect3 = new ProvinceCityAreaSelect({
 	  addrValElem: ['provinceSelect3', 'citySelect3', 'areaSelect3'],
 	  onSelected: function(provinceVal, cityVal, areaVal){
-	  	console.log(provinceVal+', '+cityVal+', '+areaVal)
+	  	//console.log(provinceVal+', '+cityVal+', '+areaVal)
 	  }
 	});
 
@@ -174,8 +174,9 @@
 
 	const pcaSelect5 = new ProvinceCityAreaSelect({
 	  addrValElem: 'provinceSelect5',
+	  separator: '-',
 	  onInit: function(provinceSelect, citySelect, areaSelect){
-	  	console.log(provinceSelect+', '+citySelect+', '+areaSelect)
+	  	//console.log(provinceSelect+', '+citySelect+', '+areaSelect)
 	  },
 	});
 </script>
