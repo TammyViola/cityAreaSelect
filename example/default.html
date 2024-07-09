@@ -12,8 +12,9 @@
 <link href="../dist/css/module.css" rel="stylesheet" type="text/css"/>
 <link href="../dist/css/cityAreaSelect.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
+	/* 以下样式仅限当前演示案例使用，无需复制到正式项目中 */
 	.wrapper{
-		min-height: 150vh;
+		min-height: 200vh;
 		padding: 50px 0;
 	}
 	.cityAreaSelect-style{
@@ -22,6 +23,7 @@
 	}
 	.cityAreaSelect-style-title{
 		font-size: 24px;
+		line-height: 1.2em;
 		font-weight: bold;
 		color: #333;
 		margin-bottom: 20px;
@@ -29,11 +31,43 @@
 	.cityAreaSelect-wrapper{
 		margin:  0 auto;
 	}
+	.cityAreaSelect-tipword{
+		font-size: 16px;
+		line-height: 2em;
+		color: #666;
+	}
+	.cityAreaSelect-tipword a{
+		text-decoration: underline;
+		color: #0071e3;
+	}
+
+	@media (max-width: 991.98px) {
+		.wrapper{
+			min-height: 250vh;
+		}
+		.cityAreaSelect-style{
+			width: 100%;
+			padding: 0 0.5rem;
+		}
+		.cityAreaSelect-style-title{
+			font-size: .4rem;
+		}
+	}
 </style>
 </head>
 
 <body>
 	<div class="wrapper">
+		<section class="cityAreaSelect-style">
+			<div class="cityAreaSelect-tipword">
+				<p><b>温馨提示：</b></p>
+				<p>* 以下案例代码中的 "cityAreaSelect-style" 、 "cityAreaSelect-style-title" 、 "cityAreaSelect-wrapper" 结构仅限案例演示时使用，实际项目中可以不用。</p>
+				<p>* 具体代码结构和使用方法、JS插件参数请参考说明文档：</p>
+				<p><a href="https://github.com/TammyViola/cityAreaSelect" target="_blank">https://github.com/TammyViola/cityAreaSelect</a></p>
+				<hr>
+			</div>
+		</section>
+
 		<section class="cityAreaSelect-style">
 			<div class="cityAreaSelect-style-title">省市区-select控件-3级联动</div>
 
@@ -84,19 +118,19 @@
 				<div class="cityAreaSelect-group row">
 					<div class="cityAreaSelect-item col-md-4">
 						<div class="cityAreaSelect-custom-box">
-							<input type="text" hidden id="provinceSelect3">
+							<input type="text" hidden class="cityAreaSelect-input" id="provinceSelect3">
 							<div class="cityAreaSelect-text">请选择省/直辖市</div>
 						</div>
 					</div>
 					<div class="cityAreaSelect-item col-md-4">
 						<div class="cityAreaSelect-custom-box">
-							<input type="text" hidden id="citySelect3">
+							<input type="text" hidden class="cityAreaSelect-input" id="citySelect3">
 							<div class="cityAreaSelect-text">请选择城市/区</div>
 						</div>
 					</div>
 					<div class="cityAreaSelect-item col-md-4">
 						<div class="cityAreaSelect-custom-box">
-							<input type="text" hidden id="areaSelect3">
+							<input type="text" hidden class="cityAreaSelect-input" id="areaSelect3">
 							<div class="cityAreaSelect-text">请选择区/县</div>
 						</div>
 					</div>
@@ -111,13 +145,13 @@
 				<div class="cityAreaSelect-group row">
 					<div class="cityAreaSelect-item col-md-4">
 						<div class="cityAreaSelect-custom-box">
-							<input type="text" hidden id="provinceSelect4">
+							<input type="text" hidden class="cityAreaSelect-input" id="provinceSelect4">
 							<div class="cityAreaSelect-text">请选择省/直辖市</div>
 						</div>
 					</div>
 					<div class="cityAreaSelect-item col-md-4">
 						<div class="cityAreaSelect-custom-box">
-							<input type="text" hidden id="citySelect4">
+							<input type="text" hidden class="cityAreaSelect-input" id="citySelect4">
 							<div class="cityAreaSelect-text">请选择城市/区</div>
 						</div>
 					</div>
@@ -132,7 +166,7 @@
 				<div class="cityAreaSelect-group row">
 					<div class="cityAreaSelect-item col-md-8">
 						<div class="cityAreaSelect-merge-box">
-							<input type="text" hidden id="provinceSelect5">
+							<input type="text" hidden class="cityAreaSelect-input" id="provinceSelect5">
 							<div class="cityAreaSelect-text">请选择省市区</div>
 						</div>
 					</div>

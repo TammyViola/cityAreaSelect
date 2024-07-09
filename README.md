@@ -46,19 +46,19 @@
 			<div class="cityAreaSelect-group row">
 			  <div class="cityAreaSelect-item col-md-4">
 			    <div class="cityAreaSelect-custom-box">
-			      <input type="text" hidden id="provinceSelect3">
+			      <input type="text" hidden class="cityAreaSelect-input" id="provinceSelect3">
 			      <div class="cityAreaSelect-text">请选择省/直辖市</div>
 			    </div>
 			  </div>
 			  <div class="cityAreaSelect-item col-md-4">
 			    <div class="cityAreaSelect-custom-box">
-			      <input type="text" hidden id="citySelect3">
+			      <input type="text" hidden class="cityAreaSelect-input" id="citySelect3">
 			      <div class="cityAreaSelect-text">请选择城市/区</div>
 			    </div>
 			  </div>
 			  <div class="cityAreaSelect-item col-md-4">
 			    <div class="cityAreaSelect-custom-box">
-			      <input type="text" hidden id="areaSelect3">
+			      <input type="text" hidden class="cityAreaSelect-input" id="areaSelect3">
 			      <div class="cityAreaSelect-text">请选择区/县</div>
 			    </div>
 			  </div>
@@ -68,13 +68,13 @@
 			<div class="cityAreaSelect-group row">
 			  <div class="cityAreaSelect-item col-md-6">
 			    <div class="cityAreaSelect-custom-box">
-			      <input type="text" hidden id="provinceSelect4">
+			      <input type="text" hidden class="cityAreaSelect-input" id="provinceSelect4">
 			      <div class="cityAreaSelect-text">请选择省/直辖市</div>
 			    </div>
 			  </div>
 			  <div class="cityAreaSelect-item col-md-6">
 			    <div class="cityAreaSelect-custom-box">
-			      <input type="text" hidden id="citySelect4">
+			      <input type="text" hidden class="cityAreaSelect-input" id="citySelect4">
 			      <div class="cityAreaSelect-text">请选择城市/区</div>
 			    </div>
 			  </div>
@@ -85,7 +85,7 @@
 				<div class="cityAreaSelect-group row">
 					<div class="cityAreaSelect-item col-md-8">
 						<div class="cityAreaSelect-merge-box">
-							<input type="text" hidden id="provinceSelect5">
+							<input type="text" hidden class="cityAreaSelect-input" id="provinceSelect5">
 							<div class="cityAreaSelect-text">请选择省市区</div>
 						</div>
 					</div>
@@ -159,7 +159,7 @@
 	* 省市区合并显示控件占位提示语
 	* String
 	* 默认值： '请选择省市区'
-	* 省市区合并时才有效，其他时候无效
+	* 省市区合并时且web端才有效，其他时候无效
 7. onInit
 	* 初始加载后回调事件
 	* Function
