@@ -1,6 +1,7 @@
 # cityAreaSelect.js
 
 当前插件版本1.0，地区数据更新于2024年07月02日，插件不依赖第三方JS，可独立使用。
+API具体使用说明：https://www.cnblogs.com/TammyBlog/p/18296123
 
 ## HTML 调用
 	<html>
