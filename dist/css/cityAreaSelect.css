@@ -95,7 +95,7 @@
   top: calc(100% + 10px);
   z-index: 20;
   white-space: nowrap;
-  font-size: .8rem;
+  font-size: 16px;
   line-height: 3.125em;
   color: #666;
   padding: 0.625em 0.5em 0.625em 0;
@@ -318,6 +318,9 @@
   -webkit-transform: none;
   transition: none;
   -webkit-transition: none;
+}
+.modal-cityAreaSelect.show {
+  opacity: 1;
 }
 .modal-cityAreaSelect.show .modal-content {
   transform: none;
