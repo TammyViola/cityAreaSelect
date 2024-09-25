@@ -4,7 +4,8 @@
 API具体使用说明：https://www.cnblogs.com/TammyBlog/p/18296123
 
 ## 更新说明
-对样式进行优化
+1. 对样式进行优化
+2. 新增控件重置功能
 
 ## HTML 调用
 	<html>
@@ -136,6 +137,13 @@ API具体使用说明：https://www.cnblogs.com/TammyBlog/p/18296123
 		  	//console.log(provinceSelect+', '+citySelect+', '+areaSelect)
 		  },
 		});
+	</script>
+
+## 控件重置功能
+	<script type="text/javascript">
+		$('.btn-reset').on('click', function(){
+			pcaSelect1.reset();
+		})
 	</script>
 
 ## JS参数说明
